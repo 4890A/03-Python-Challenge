@@ -1,3 +1,4 @@
+""" """
 import os
 import csv
 
@@ -12,7 +13,7 @@ def get_results(tally, candidates):
     for i in range(len(candidates)):
         name = candidates[i]
         percent = f"{(tally[i]/total) * 100:.2f}"
-        statement = (f"{name}: {percent} ({tally[i]})")
+        statement = f"{name}: {percent} ({tally[i]})"
         results += "\n" + statement
 
     winner = candidates[tally.index(max(tally))]
@@ -26,13 +27,13 @@ def get_results(tally, candidates):
 csvpath = os.path.join("election_data.csv")
 
 with open(csvpath) as csvfile:
-    csvreader = csv.reader(csvfile, delimiter=',')
+    csvreader = csv.reader(csvfile, delimiter=",")
     next(csvreader)
     votes = []
     for row in csvreader:
         votes.append(row[2])
 
-    candidates = list(set(votes))  # convert to set to get unique set of candidates
+    candidates = list(set(votes))  # convert to set to get unique set
     tally = [0] * len(candidates)  # zeros list to hold tallys for candidates
 
     # tally up votes by matching name in vote to candidate
@@ -44,5 +45,5 @@ with open(csvpath) as csvfile:
     results = get_results(tally, candidates)
     print(results)
 
-    output = open("output.txt", 'w')
+    output = open("output.txt", "w")
     print(results, file=output)
